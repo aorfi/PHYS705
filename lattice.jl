@@ -23,13 +23,13 @@ function random_config(L::Int)
 end
 
 function config_info(L::Int, spins, neighbours)
-    num_spins = L^2
+    N = L^2
     energy_i = 0
-    for i in (1:num_spins)
+    for i in (1:N)
         neigh_down = neighbours[i,2]
         neigh_right = neighbours[i,3]
         energy_i += -1*spins[i]*(spins[neigh_down]+spins[neigh_right])
     end
     m_i = sum(spins)
-    return m_i, energy_i
+    return energy_i/N, (energy_i/N)^2, abs(m_i/N), (m_i/N)^2 
 end

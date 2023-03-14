@@ -1,7 +1,7 @@
 include("lattice.jl")
 
 
-function Wolff_step(spins,T)
+function Wolff_step(spins,T,N,neigh)
     prob = 1-exp(-2/T)
     cluster = []
     spins_to_check = []
