@@ -31,5 +31,5 @@ function config_info(L::Int, spins, neighbours)
         energy_i += -1*spins[i]*(spins[neigh_down]+spins[neigh_right])
     end
     m_i = sum(spins)
-    return energy_i/N, (energy_i/N)^2, abs(m_i/N), (m_i/N)^2 
+    return energy_i, (energy_i)^2, abs(m_i), (m_i)^2 
 end
