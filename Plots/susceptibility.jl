@@ -35,7 +35,7 @@ using JLD2
 γ  = 7/4
 ν = 1
 Tc = 2/log(1+sqrt(2))
-L_values = [6,8,10,16]
+L_values = [10,16,20,24,32]
 for L in L_values
     N=L^2
     T_values = range(1,4, length=100)
@@ -56,12 +56,12 @@ for L in L_values
         append!(χ_T ,χ)
     end
     t = [(T-Tc)/Tc for T in T_values]
-    # plt.scatter(T_values,χ_T, label = "Wolff L = "*string(L))
-    plt.scatter(t*L^(1/ν),χ_T*L^(-γ/ν), label = "Wolff L = "*string(L))
+    plt.scatter(T_values,χ_T, label = "Wolff L = "*string(L))
+    # plt.scatter(t*L^(1/ν),χ_T*L^(-γ/ν), label = "Wolff L = "*string(L))
     # plt.plot(T_values,χ_T)
 end
 plt.xlabel("T")
 plt.ylabel(L"$\chi$")
-# plt.axvline(Tc)
+plt.axvline(Tc)
 plt.legend()
 plt.show()

@@ -4,32 +4,38 @@ using LaTeXStrings
 
 
 include("lattice.jl")
-include("MH.jl")
+include("local_updates.jl")
 include("Wolff.jl")
 
 
 
-L= 16
+L= 8
 # β = 1
-T = 2
+T = 4
 N = L^2
 neigh = get_neighbours(L)
 
 spins_MH = random_config(L)
+spins_glaub = random_config(L)
 spins_Wolff = random_config(L)
 e_MH = []
+e_glaub = []
 e_Wolff = []
-num_steps = 10^5
+num_steps = 10^4
 for i in (1:num_steps)
-    global spins_MH = MH_step(L,neigh, spins_MH, MH_prob(T))
-    e, e2, m, m2 = config_info(L, spins_MH, neigh)
-    append!(e_MH,e)
-    global spins_Wolff = Wolff_step(spins_Wolff,T,N,neigh)
-    e, e2, m, m2  = config_info(L, spins_Wolff, neigh)
-    append!(e_Wolff,e)
+    global spins_MH = MH_step(L,neigh, spins_MH, T)
+    e, e2, m, m2, config = config_info(L, spins_MH, neigh)
+    append!(e_MH,config)
+    global spins_glaub = glauber_step(L,neigh, spins_glaub,T)
+    e, e2, m, m2, config = config_info(L, spins_glaub, neigh)
+    append!(e_glaub,config)
+    # global spins_Wolff = Wolff_step(spins_Wolff,T,N,neigh)
+    # e, e2, m, m2, config  = config_info(L, spins_Wolff, neigh,h)
+    # append!(e_Wolff,m)
 end
 plt.plot((1:num_steps),e_MH, label="MH")
-plt.plot((1:num_steps),e_Wolff, label = "Wolff")
+plt.plot((1:num_steps),e_glaub, label="Glauber")
+# plt.plot((1:num_steps),e_Wolff, label = "Wolff")
 plt.legend()
 plt.show()
 num_discard = 100

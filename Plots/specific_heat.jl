@@ -4,10 +4,10 @@ using LaTeXStrings
 using JLD2
 
 Tc = 2/log(1+sqrt(2))
-L_values = [4,6,8,10]
+L_values = [8,10,16,20,24,32]
 for L in L_values
     T_values = range(2,3, length=100)
-    name = "Data/Ising/T2-3L"*string(L)
+    name = "Data/Ising/L"*string(L)
     bin_av_T = load_object(name) 
     num_bins = length(bin_av_T[1,:,1])
     bins_discard = 6
