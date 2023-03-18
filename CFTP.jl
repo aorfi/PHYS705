@@ -32,37 +32,51 @@ end
 
 
 
-num_runs = 1
-T_values = range(1,4, length=100)
-L_values = [32]
-obs = zeros(4,length(T_values))
+# num_runs = 10
+# T_values = range(2,3, length=50)
+# L_values = [16]
+
+# for L in L_values
+#     N = L^2
+#     obs = zeros(N,num_runs,length(T_values))
+#     neigh = get_neighbours(L)
+#     for (j,T) in pairs(T_values)
+#         println("current T ", T)
+#         for i in (1:num_runs)
+#             println("iteration ", i)
+#             spins, collision = CFTP_step(L,neigh,T)
+#             obs[:,i,j] = spins
+#         end
+#     end
+#     name = "Data/Ising/T2-3CFTPL"*string(L)
+#     save_object(name, obs)
+# end
+
+
+
+
+L_values = [16]
+num_runs = 2
 for L in L_values
     N = L^2
     neigh = get_neighbours(L)
+    T_values = range(2,3, length=50)
+    name = "Data/Ising/T2-3CFTPL"*string(L)
+    obs = load_object(name) 
+    m_av_T = []
     for (j,T) in pairs(T_values)
-        println("current T ", T)
         e_av, e2_av, m_av, m2_av = 0,0,0,0
         for i in (1:num_runs)
-            spins, collision = CFTP_step(L,neigh,T)
-            e, e2, m, m2,config  = config_info(L, spins, neigh)
-            e_av += e/num_runs 
-            e2_av += e2/num_runs 
-            m_av += m/num_runs 
-            m2_av += m2/num_runs 
+            spins = obs[:,i,j]
+            e, e2, m, m2, config = config_info(L, spins, neigh)
+            e_av += 1/num_runs*e
+            e2_av += 1/num_runs*e2
+            m_av += 1/num_runs*m
+            m2_av += 1/num_runs*m2
         end
-        obs[:,j] = [e_av, e2_av, m_av, m2_av]
+        append!(m_av_T,m_av)
     end
-    name = "Data/Ising/CFTPL"*string(L)
-    save_object(name, obs)
-end
-
-L_values = [16,32]
-for L in L_values
-    N = L^2
-    T_values = range(1,4, length=100)
-    name = "Data/Ising/CFTPL"*string(L)
-    obs = load_object(name) 
-    plt.scatter(T_values,obs[3,:]/N, label = "L = "*string(L))
+    plt.scatter(T_values,m_av_T/N, label = "L = "*string(L))
     # plt.plot(T_values,e_av_T)
 end
 plt.xlabel("T")
