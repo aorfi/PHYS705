@@ -2,7 +2,7 @@ using Random
 # Random.seed!(1234)
 include("../lattice.jl")
 
-function HM_update_prob(T)
+function MH_update_prob(T)
     β = 1/T
     prob_acc = Array{Float64}(undef,5)
     for (i,spin_sum) in pairs(-4:2:4)
