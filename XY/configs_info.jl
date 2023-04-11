@@ -27,7 +27,7 @@ function H_x(L::Int, spins_angles, neighbours)
         neigh_right = neighbours[i,3]
         energy += cos(current_spin - spins_angles[neigh_right])
     end
-    return energy/N
+    return energy
 end
 
 function I_x(L::Int, spins_angles, neighbours)
@@ -38,7 +38,7 @@ function I_x(L::Int, spins_angles, neighbours)
         neigh_right = neighbours[i,3]
         energy += sin(current_spin - spins_angles[neigh_right])
     end
-    return (energy/N)^2
+    return (energy)^2
 end
 
 # L= 16
