@@ -28,7 +28,5 @@ for L in L_values
 end
 plt.xlabel("T")
 plt.ylabel("E/N")
-# Tc = 2/log(1+sqrt(2))
-# plt.axvline(Tc)
 plt.legend()
 plt.show()
