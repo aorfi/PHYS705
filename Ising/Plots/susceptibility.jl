@@ -50,7 +50,7 @@ using JLD2
 γ  = 7/4
 ν = 1
 Tc = 2/log(1+sqrt(2))
-L_values = [6,8,16,24]
+L_values = [16,24,32,40]
 num_steps= 10^4
 bin_size = 1
 num_bins = Int(num_steps/bin_size)

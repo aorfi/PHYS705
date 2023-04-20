@@ -4,7 +4,7 @@ using LaTeXStrings
 using JLD2
 
 
-L_values = [32]
+L_values = [40]
 for L in L_values
     N = L^2
     T_values = range(1,4, length=100)

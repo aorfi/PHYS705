@@ -12,11 +12,11 @@ num_steps = 10^4
 bin_size = 1
 num_bins = Int(num_steps/bin_size)
 println("Number of bins ", num_bins)
-T_values = range(2,3, length=100)
+T_values = range(1,4, length=100)
 bin_av_T = zeros(4,num_bins,length(T_values))
 
 
-L_values = [16,24,32]
+L_values = [4]
 
 for L in L_values
     N = L^2
@@ -36,6 +36,7 @@ for L in L_values
                     e_av = 1/(bin_size)*sum(info_in_bin[:,1])
                     e2_av = 1/(bin_size)*sum(info_in_bin[:,2])
                     m_av = 1/(bin_size)*sum(info_in_bin[:,3])
+                    println(m_av)
                     m2_av = 1/(bin_size)*sum(info_in_bin[:,4])
                     bin_av[:,Int(j/bin_size)] = [e_av, e2_av, m_av, m2_av]
                     info_in_bin = zeros(bin_size, 4)
@@ -44,6 +45,7 @@ for L in L_values
         end
         bin_av_T[:,:,l] = bin_av 
     end
-    name = "Data/Ising/T2-3L"*string(L)
+    # name = "Data/Ising/T2-3L"*string(L)
+    name = "Data/Ising/L"*string(L)
     save_object(name, bin_av_T)
 end
