@@ -47,8 +47,10 @@ using JLD2
 # plt.show()
 
 
-γ  = 7/4
-ν = 1
+# γ  = 7/4
+# ν = 1
+γ  = 1.82
+ν = 1.03
 Tc = 2/log(1+sqrt(2))
 L_values = [16,24,32,40]
 num_steps= 10^4
@@ -73,20 +75,19 @@ for L in L_values
         append!(χ_T ,χ)
     end
     t = [(T-Tc)/Tc for T in T_values]
-    plt.scatter(T_values,χ_T, label = "Wolff L = "*string(L))
-    # plt.scatter(t*L^(1/ν),χ_T*L^(-γ/ν), label = "Wolff L = "*string(L))
+    # plt.scatter(T_values,χ_T, label = "L = "*string(L))
+    plt.scatter(t*L^(1/ν),χ_T*L^(-γ/ν), label = "L = "*string(L))
     # plt.plot(T_values,χ_T)
 end
 
 
 plt.legend()
 plt.grid()
-plt.axvline(Tc, linestyle = "dotted", color = "black")
-plt.xlabel("T")
-plt.ylabel(L"$\chi$")
-# name = "Figures/Ising/chi_T.png"
-# plt.xlabel(L"$tL^{1/\nu}$")
-# plt.ylabel(L"$\chi L^{-\gamma/\nu}$")
-# name = "Figures/Ising/chi_T_scaled.png"
-# plt.savefig(name)
+# plt.axvline(Tc, linestyle = "dotted", color = "black")
+# plt.xlabel("T")
+# plt.ylabel(L"$\chi$")
+plt.xlabel(L"$tL^{1/\nu}$")
+plt.ylabel(L"$\chi L^{-\gamma/\nu}$")
+name = "Figures/Ising/chi_T_scaled.png"
+plt.savefig(name)
 plt.show()

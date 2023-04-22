@@ -25,7 +25,7 @@ using JLD2
 #     plt.scatter(T_values,cv_T, label = "Random L = "*string(L))
 # end
 
-L_values = [4,8,16]
+L_values = [16,24,32]
 T_values = range(0,3, length=100)
 num_steps_Wolff = 10^4
 bin_size_Wolff = 1
@@ -43,9 +43,14 @@ for L in L_values
         cv = (e2_av - e_av^2)/(N*T^2)
         append!(cv_T_Wolff,cv)
     end
-    plt.scatter(T_values,cv_T_Wolff, label = "Random L = "*string(L))
+    plt.scatter(T_values,cv_T_Wolff, label = "L = "*string(L))
 end
+Tc = 0.8933
+plt.axvline(Tc, linestyle = "dotted", color = "black", label = L"$T_c$")
 plt.xlabel("T")
-plt.ylabel(L"$C_v$")
+plt.ylabel(L"$C_v/N$")
 plt.legend()
+plt.grid()
+name = "Figures/XY/Cv_T.png"
+plt.savefig(name)
 plt.show()

@@ -19,5 +19,5 @@ function config_info(L::Int, spins, neighbours)
     binary = (spins .+1 )/2
     # config = parse(Int, join(string.(Int.(binary))); base=2)
     config = sum(binary)
-    return energy_i, (energy_i)^2, m_i, (m_i)^2, config
+    return energy_i, (energy_i)^2, abs(m_i), (m_i)^2, config
 end

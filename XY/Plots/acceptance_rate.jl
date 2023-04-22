@@ -17,5 +17,8 @@ plt.xlabel("T")
 plt.ylabel("Acceptance Rate")
 # Tc = 2/log(1+sqrt(2))
 # plt.axvline(Tc)
+plt.grid()
 plt.legend()
+name = "Figures/XY/acceptance_rate.png"
+plt.savefig(name)
 plt.show()
